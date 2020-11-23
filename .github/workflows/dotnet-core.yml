@@ -17,8 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
     - name: Install dependencies
       run: |
         cd src
@@ -37,4 +35,4 @@ jobs:
         dotnet pack --configuration Release --output $GITHUB_WORKSPACE/out
 
     - name: Push generated package NuGet
-      run: dotnet nuget push $GITHUB_WORKSPACE/out/*.nupkg --source https://www.nuget.org/api/v2/package --skip-duplicate --no-symbols true
+      run: dotnet nuget push $GITHUB_WORKSPACE/out/*.nupkg --source https://www.nuget.org/api/v2/package --api-key ${{secrets.NUGET_TOKEN}} --skip-duplicate --no-symbols true
