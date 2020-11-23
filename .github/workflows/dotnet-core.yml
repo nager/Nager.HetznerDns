@@ -17,6 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
     - name: Install dependencies
       run: |
         cd src
@@ -29,3 +31,10 @@ jobs:
 #      run: |
 #        cd src
 #        dotnet test --no-restore --verbosity normal
+    - name: Build solution and generate NuGet package
+      run: |  
+        cd scr/Nager.HetznerDns
+        dotnet pack --configuration Release -output /out
+
+    - name: Push generated package NuGet
+      run: dotnet nuget push /out/*.nupkg --skip-duplicate --no-symbols true
