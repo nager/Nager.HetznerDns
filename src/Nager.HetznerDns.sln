@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nager.HetznerDns", "Nager.HetznerDns\Nager.HetznerDns.csproj", "{EC608B41-12AE-4895-804E-26C65D69B67B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nager.HetznerDns.UnitTest", "Nager.HetznerDns.UnitTest\Nager.HetznerDns.UnitTest.csproj", "{8570FAD2-FDCD-49F3-BEFA-9386527CC9F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC608B41-12AE-4895-804E-26C65D69B67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC608B41-12AE-4895-804E-26C65D69B67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC608B41-12AE-4895-804E-26C65D69B67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC608B41-12AE-4895-804E-26C65D69B67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8570FAD2-FDCD-49F3-BEFA-9386527CC9F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8570FAD2-FDCD-49F3-BEFA-9386527CC9F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8570FAD2-FDCD-49F3-BEFA-9386527CC9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8570FAD2-FDCD-49F3-BEFA-9386527CC9F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1FE64B2-AB8C-4299-A232-A25931D2C046}
+	EndGlobalSection
+EndGlobal

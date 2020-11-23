@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Tino Hager</Authors>
+    <Company>nager.at</Company>
+    <Description>Hetzner DNS API, Get Zones, Get Records, Create Record, Delete Record</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/nager/Nager.HetznerDns</RepositoryUrl>
+    <PackageTags>Hetzner Dns Api</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>
