@@ -34,7 +34,7 @@ jobs:
     - name: Build solution and generate NuGet package
       run: |  
         cd src/Nager.HetznerDns
-        dotnet pack --configuration Release --output ../../out
+        dotnet pack --configuration Release --output ../../../out
 
     - name: Push generated package NuGet
       run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true
