@@ -33,7 +33,7 @@ jobs:
 #        dotnet test --no-restore --verbosity normal
     - name: Build solution and generate NuGet package
       run: |  
-        cd scr/Nager.HetznerDns
+        cd src/Nager.HetznerDns
         dotnet pack --configuration Release -output /out
 
     - name: Push generated package NuGet
