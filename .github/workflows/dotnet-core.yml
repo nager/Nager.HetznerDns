@@ -37,4 +37,4 @@ jobs:
         dotnet pack --configuration Release --output $GITHUB_WORKSPACE/out
 
     - name: Push generated package NuGet
-      run: dotnet nuget push $GITHUB_WORKSPACE/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push $GITHUB_WORKSPACE/*.nupkg -Source https://www.nuget.org/api/v2/package --skip-duplicate --no-symbols true
