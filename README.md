@@ -1,5 +1,7 @@
 # Nager.HetznerDns
 
+Client for the DNS Api of Hetzner https://dns.hetzner.com/api-docs
+
 ## nuget
 The package is available on [nuget](https://www.nuget.org/packages/Nager.HetznerDns)
 ```
