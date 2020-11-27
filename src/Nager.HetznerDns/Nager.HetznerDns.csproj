@@ -8,10 +8,19 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/nager/Nager.HetznerDns</RepositoryUrl>
     <PackageTags>Hetzner Dns Api</PackageTags>
+    <PackageIcon>dns.png</PackageIcon>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\doc\icons\dns.png">
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+  
 </Project>
