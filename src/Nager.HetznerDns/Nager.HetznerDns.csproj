@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,6 +10,8 @@
     <PackageTags>Hetzner Dns Api</PackageTags>
     <PackageIcon>dns.png</PackageIcon>
     <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
     <None Include="..\..\doc\icons\dns.png">
       <Pack>true</Pack>
       <Visible>false</Visible>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
   
