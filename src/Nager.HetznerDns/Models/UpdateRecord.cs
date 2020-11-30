@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Nager.HetznerDns.Models
 {
-    public class CreateRecord
+    public class UpdateRecord
     {
         public string ZoneId { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]

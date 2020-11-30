@@ -38,7 +38,7 @@ namespace Nager.HetznerDns
             this._jsonSerializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
             };
         }
 
@@ -70,6 +70,8 @@ namespace Nager.HetznerDns
             return JsonConvert.DeserializeObject<ZoneResponse>(json, this._jsonSerializerSettings);
         }
 
+        #region Records
+
         public async Task<RecordResponse> GetRecordsAsync(string zoneId, CancellationToken cancellationToken = default)
         {
             var responseMessage = await this._httpClient.GetAsync($"v1/records?zone_id={zoneId}", cancellationToken);
@@ -93,7 +95,7 @@ namespace Nager.HetznerDns
             }
         }
 
-        public async Task CreateRecordAsync(CreateRecord record, CancellationToken cancellationToken = default)
+        public async Task<Record> CreateRecordAsync(CreateRecord record, CancellationToken cancellationToken = default)
         {
             var json = JsonConvert.SerializeObject(record, this._jsonSerializerSettings);
 
@@ -103,6 +105,28 @@ namespace Nager.HetznerDns
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
                 throw new HttpException($"{responseMessage.IsSuccessStatusCode} {errorMessage}");
             }
+
+            json = await responseMessage.Content.ReadAsStringAsync();
+            var changeRecordResponse = JsonConvert.DeserializeObject<ChangeRecordResponse>(json, this._jsonSerializerSettings);
+            return changeRecordResponse.Record;
         }
+
+        public async Task<Record> UpdateRecordAsync(string recordId, UpdateRecord record, CancellationToken cancellationToken = default)
+        {
+            var json = JsonConvert.SerializeObject(record, this._jsonSerializerSettings);
+
+            var responseMessage = await this._httpClient.PutAsync($"v1/records/{recordId}", new StringContent(json), cancellationToken);
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                var errorMessage = await responseMessage.Content.ReadAsStringAsync();
+                throw new HttpException($"{responseMessage.IsSuccessStatusCode} {errorMessage}");
+            }
+
+            json = await responseMessage.Content.ReadAsStringAsync();
+            var changeRecordResponse = JsonConvert.DeserializeObject<ChangeRecordResponse>(json, this._jsonSerializerSettings);
+            return changeRecordResponse.Record;
+        }
+
+        #endregion
     }
 }

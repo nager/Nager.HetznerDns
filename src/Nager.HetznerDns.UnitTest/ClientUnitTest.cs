@@ -37,16 +37,50 @@ namespace Nager.HetznerDns.UnitTest
             Assert.IsNotNull(zoneResponse);
             var zoneId = zoneResponse.Zones.FirstOrDefault()?.Id;
 
-            var record = new CreateRecord()
+            var record = new CreateRecord
             {
-                Name = "_acme-challenge.test",
-                Type = "TXT",
+                ZoneId = zoneId,
+                Name = "_acme-challenge.unittest",
+                Type = DnsRecordType.TXT,
                 Value = "testest",
-                Ttl = 0,
-                ZoneId = zoneId
+                Ttl = 0
             };
 
-            await client.CreateRecordAsync(record);
+            var createdRecord = await client.CreateRecordAsync(record);
+            Assert.IsNotNull(createdRecord);
+        }
+
+        [TestMethod]
+        public async Task UpdateRecordAsync()
+        {
+            var client = new HetznerDnsClient(this._apiKey);
+            var zoneResponse = await client.GetZonesAsync();
+            Assert.IsNotNull(zoneResponse);
+            var zoneId = zoneResponse.Zones.FirstOrDefault()?.Id;
+
+            var createRecord = new CreateRecord
+            {
+                ZoneId = zoneId,
+                Name = "_acme-challenge.unittest",
+                Type = DnsRecordType.TXT,
+                Value = "testest",
+                Ttl = 0
+            };
+
+            var createdRecord = await client.CreateRecordAsync(createRecord);
+            Assert.IsNotNull(createdRecord);
+
+            var updateRecord = new UpdateRecord
+            {
+                ZoneId = createRecord.ZoneId,
+                Type = DnsRecordType.TXT,
+                Name = createRecord.Name,
+                Value = "update-record",
+                Ttl = 10,
+            };
+
+            var updatedRecord = await client.UpdateRecordAsync(createdRecord.Id, updateRecord);
+            Assert.IsNotNull(updatedRecord);
         }
 
         [TestMethod]
@@ -59,8 +93,11 @@ namespace Nager.HetznerDns.UnitTest
             var recordResponse = await client.GetRecordsAsync(zoneId);
             Assert.IsNotNull(recordResponse);
 
-            var txtRecords = recordResponse.Records.Where(o => o.Type == "TXT" && o.Name.StartsWith("_acme-challenge")).ToList();
-            await client.DeleteRecordAsync(txtRecords.FirstOrDefault()?.Id);
+            var txtRecords = recordResponse.Records.Where(o => o.Type == DnsRecordType.TXT && o.Name.StartsWith("_acme-challenge")).ToList();
+            var txtRecordId = txtRecords.FirstOrDefault()?.Id;
+            Assert.IsNotNull(txtRecordId);
+
+            await client.DeleteRecordAsync(txtRecordId);
         }
     }
 }

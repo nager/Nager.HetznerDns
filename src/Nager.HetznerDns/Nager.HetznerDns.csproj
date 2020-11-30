@@ -9,9 +9,10 @@
     <RepositoryUrl>https://github.com/nager/Nager.HetznerDns</RepositoryUrl>
     <PackageTags>Hetzner Dns Api</PackageTags>
     <PackageIcon>dns.png</PackageIcon>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIconUrl />
+    <PackageReleaseNotes>Add update record logic</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
