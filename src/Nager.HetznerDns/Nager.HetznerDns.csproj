@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Tino Hager</Authors>
     <Company>nager.at</Company>
-    <Description>Hetzner DNS API, Get Zones, Get Records, Create Record, Delete Record</Description>
+    <Description>Hetzner DNS API, Get Zones, Get Records, Create Record, Update Record, Delete Record</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/nager/Nager.HetznerDns</RepositoryUrl>
     <PackageTags>Hetzner Dns Api</PackageTags>
