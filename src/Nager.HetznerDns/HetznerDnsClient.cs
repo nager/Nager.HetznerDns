@@ -57,6 +57,8 @@ namespace Nager.HetznerDns
             this._httpClient.Dispose();
         }
 
+        #region Zones
+
         public async Task<ZoneResponse> GetZonesAsync(CancellationToken cancellationToken = default)
         {
             var responseMessage = await this._httpClient.GetAsync("v1/zones", cancellationToken);
@@ -69,6 +71,34 @@ namespace Nager.HetznerDns
             var json = await responseMessage.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<ZoneResponse>(json, this._jsonSerializerSettings);
         }
+
+        public async Task<Zone> CreateZoneAsync(CreateZone zone, CancellationToken cancellationToken = default)
+        {
+            var json = JsonConvert.SerializeObject(zone, this._jsonSerializerSettings);
+
+            var responseMessage = await this._httpClient.PostAsync($"v1/zones", new StringContent(json), cancellationToken);
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                var errorMessage = await responseMessage.Content.ReadAsStringAsync();
+                throw new HttpException($"{responseMessage.IsSuccessStatusCode} {errorMessage}");
+            }
+
+            json = await responseMessage.Content.ReadAsStringAsync();
+            var changeResponse = JsonConvert.DeserializeObject<ChangeZoneResponse>(json, this._jsonSerializerSettings);
+            return changeResponse.Zone;
+        }
+
+        public async Task DeleteZoneAsync(string zoneId, CancellationToken cancellationToken = default)
+        {
+            var responseMessage = await this._httpClient.DeleteAsync($"v1/zones/{zoneId}", cancellationToken);
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                var errorMessage = await responseMessage.Content.ReadAsStringAsync();
+                throw new HttpException($"{responseMessage.IsSuccessStatusCode} {errorMessage}");
+            }
+        }
+
+        #endregion
 
         #region Records
 
@@ -85,16 +115,6 @@ namespace Nager.HetznerDns
             return JsonConvert.DeserializeObject<RecordResponse>(json, this._jsonSerializerSettings);
         }
 
-        public async Task DeleteRecordAsync(string recordId, CancellationToken cancellationToken = default)
-        {
-            var responseMessage = await this._httpClient.DeleteAsync($"v1/records/{recordId}", cancellationToken);
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                var errorMessage = await responseMessage.Content.ReadAsStringAsync();
-                throw new HttpException($"{responseMessage.IsSuccessStatusCode} {errorMessage}");
-            }
-        }
-
         public async Task<Record> CreateRecordAsync(CreateRecord record, CancellationToken cancellationToken = default)
         {
             var json = JsonConvert.SerializeObject(record, this._jsonSerializerSettings);
@@ -107,8 +127,8 @@ namespace Nager.HetznerDns
             }
 
             json = await responseMessage.Content.ReadAsStringAsync();
-            var changeRecordResponse = JsonConvert.DeserializeObject<ChangeRecordResponse>(json, this._jsonSerializerSettings);
-            return changeRecordResponse.Record;
+            var changeResponse = JsonConvert.DeserializeObject<ChangeRecordResponse>(json, this._jsonSerializerSettings);
+            return changeResponse.Record;
         }
 
         public async Task<Record> UpdateRecordAsync(string recordId, UpdateRecord record, CancellationToken cancellationToken = default)
@@ -123,8 +143,18 @@ namespace Nager.HetznerDns
             }
 
             json = await responseMessage.Content.ReadAsStringAsync();
-            var changeRecordResponse = JsonConvert.DeserializeObject<ChangeRecordResponse>(json, this._jsonSerializerSettings);
-            return changeRecordResponse.Record;
+            var changeResponse = JsonConvert.DeserializeObject<ChangeRecordResponse>(json, this._jsonSerializerSettings);
+            return changeResponse.Record;
+        }
+
+        public async Task DeleteRecordAsync(string recordId, CancellationToken cancellationToken = default)
+        {
+            var responseMessage = await this._httpClient.DeleteAsync($"v1/records/{recordId}", cancellationToken);
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                var errorMessage = await responseMessage.Content.ReadAsStringAsync();
+                throw new HttpException($"{responseMessage.IsSuccessStatusCode} {errorMessage}");
+            }
         }
 
         #endregion
