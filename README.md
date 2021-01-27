@@ -7,7 +7,7 @@ The package is available on [nuget](https://www.nuget.org/packages/Nager.Hetzner
 ```
 PM> install-package Nager.HetznerDns
 ```
-## Examples for .NET (nuget package)
+## Examples of use
 
 ### Get all records of a zone
 ```cs
