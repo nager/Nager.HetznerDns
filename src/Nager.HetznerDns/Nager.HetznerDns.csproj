@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/nager/Nager.HetznerDns</RepositoryUrl>
     <PackageTags>Hetzner Dns Api</PackageTags>
     <PackageIcon>dns.png</PackageIcon>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIconUrl />
     <PackageReleaseNotes>Add zone create and delete logic</PackageReleaseNotes>
