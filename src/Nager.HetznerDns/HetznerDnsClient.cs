@@ -59,9 +59,10 @@ namespace Nager.HetznerDns
 
         #region Zones
 
-        public async Task<ZoneResponse> GetZonesAsync(CancellationToken cancellationToken = default)
+        public async Task<ZoneResponse> GetZonesAsync(
+            CancellationToken cancellationToken = default)
         {
-            var responseMessage = await this._httpClient.GetAsync("v1/zones", cancellationToken);
+            using var responseMessage = await this._httpClient.GetAsync("v1/zones", cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
@@ -72,11 +73,13 @@ namespace Nager.HetznerDns
             return JsonConvert.DeserializeObject<ZoneResponse>(json, this._jsonSerializerSettings);
         }
 
-        public async Task<Zone> CreateZoneAsync(CreateZone zone, CancellationToken cancellationToken = default)
+        public async Task<Zone> CreateZoneAsync(
+            CreateZone createZone,
+            CancellationToken cancellationToken = default)
         {
-            var json = JsonConvert.SerializeObject(zone, this._jsonSerializerSettings);
+            var json = JsonConvert.SerializeObject(createZone, this._jsonSerializerSettings);
 
-            var responseMessage = await this._httpClient.PostAsync($"v1/zones", new StringContent(json), cancellationToken);
+            using var responseMessage = await this._httpClient.PostAsync($"v1/zones", new StringContent(json), cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
@@ -88,9 +91,11 @@ namespace Nager.HetznerDns
             return changeResponse.Zone;
         }
 
-        public async Task DeleteZoneAsync(string zoneId, CancellationToken cancellationToken = default)
+        public async Task DeleteZoneAsync(
+            string zoneId,
+            CancellationToken cancellationToken = default)
         {
-            var responseMessage = await this._httpClient.DeleteAsync($"v1/zones/{zoneId}", cancellationToken);
+            using var responseMessage = await this._httpClient.DeleteAsync($"v1/zones/{zoneId}", cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
@@ -102,9 +107,11 @@ namespace Nager.HetznerDns
 
         #region Records
 
-        public async Task<RecordResponse> GetRecordsAsync(string zoneId, CancellationToken cancellationToken = default)
+        public async Task<RecordResponse> GetRecordsAsync(
+            string zoneId,
+            CancellationToken cancellationToken = default)
         {
-            var responseMessage = await this._httpClient.GetAsync($"v1/records?zone_id={zoneId}", cancellationToken);
+            using var responseMessage = await this._httpClient.GetAsync($"v1/records?zone_id={zoneId}", cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
@@ -115,11 +122,13 @@ namespace Nager.HetznerDns
             return JsonConvert.DeserializeObject<RecordResponse>(json, this._jsonSerializerSettings);
         }
 
-        public async Task<Record> CreateRecordAsync(CreateRecord record, CancellationToken cancellationToken = default)
+        public async Task<Record> CreateRecordAsync(
+            CreateRecord record,
+            CancellationToken cancellationToken = default)
         {
             var json = JsonConvert.SerializeObject(record, this._jsonSerializerSettings);
 
-            var responseMessage = await this._httpClient.PostAsync($"v1/records", new StringContent(json), cancellationToken);
+            using var responseMessage = await this._httpClient.PostAsync($"v1/records", new StringContent(json), cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
@@ -131,11 +140,14 @@ namespace Nager.HetznerDns
             return changeResponse.Record;
         }
 
-        public async Task<Record> UpdateRecordAsync(string recordId, UpdateRecord record, CancellationToken cancellationToken = default)
+        public async Task<Record> UpdateRecordAsync(
+            string recordId,
+            UpdateRecord updateRecord,
+            CancellationToken cancellationToken = default)
         {
-            var json = JsonConvert.SerializeObject(record, this._jsonSerializerSettings);
+            var json = JsonConvert.SerializeObject(updateRecord, this._jsonSerializerSettings);
 
-            var responseMessage = await this._httpClient.PutAsync($"v1/records/{recordId}", new StringContent(json), cancellationToken);
+            using var responseMessage = await this._httpClient.PutAsync($"v1/records/{recordId}", new StringContent(json), cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
@@ -147,9 +159,11 @@ namespace Nager.HetznerDns
             return changeResponse.Record;
         }
 
-        public async Task DeleteRecordAsync(string recordId, CancellationToken cancellationToken = default)
+        public async Task DeleteRecordAsync(
+            string recordId,
+            CancellationToken cancellationToken = default)
         {
-            var responseMessage = await this._httpClient.DeleteAsync($"v1/records/{recordId}", cancellationToken);
+            using var responseMessage = await this._httpClient.DeleteAsync($"v1/records/{recordId}", cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 var errorMessage = await responseMessage.Content.ReadAsStringAsync();
