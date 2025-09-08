@@ -13,7 +13,7 @@ namespace Nager.HetznerDns.UnitTest
         [TestMethod]
         public async Task GetZonesAsync()
         {
-            var client = new HetznerDnsClient(this._apiKey);
+            using var client = new HetznerDnsClient(this._apiKey);
             var response = await client.GetZonesAsync();
             Assert.IsNotNull(response);
         }
@@ -21,7 +21,7 @@ namespace Nager.HetznerDns.UnitTest
         [TestMethod]
         public async Task GetRecordsAsync()
         {
-            var client = new HetznerDnsClient(this._apiKey);
+            using var client = new HetznerDnsClient(this._apiKey);
             var zoneResponse = await client.GetZonesAsync();
             var zoneId = zoneResponse.Zones.FirstOrDefault()?.Id;
 
@@ -32,7 +32,7 @@ namespace Nager.HetznerDns.UnitTest
         [TestMethod]
         public async Task CreateRecordAsync()
         {
-            var client = new HetznerDnsClient(this._apiKey);
+            using var client = new HetznerDnsClient(this._apiKey);
             var zoneResponse = await client.GetZonesAsync();
             Assert.IsNotNull(zoneResponse);
             var zoneId = zoneResponse.Zones.FirstOrDefault()?.Id;
@@ -53,7 +53,7 @@ namespace Nager.HetznerDns.UnitTest
         [TestMethod]
         public async Task UpdateRecordAsync()
         {
-            var client = new HetznerDnsClient(this._apiKey);
+            using var client = new HetznerDnsClient(this._apiKey);
             var zoneResponse = await client.GetZonesAsync();
             Assert.IsNotNull(zoneResponse);
             var zoneId = zoneResponse.Zones.FirstOrDefault()?.Id;
@@ -86,7 +86,7 @@ namespace Nager.HetznerDns.UnitTest
         [TestMethod]
         public async Task DeleteRecordAsync()
         {
-            var client = new HetznerDnsClient(this._apiKey);
+            using var client = new HetznerDnsClient(this._apiKey);
             var zoneResponse = await client.GetZonesAsync();
             var zoneId = zoneResponse.Zones.FirstOrDefault()?.Id;
 
