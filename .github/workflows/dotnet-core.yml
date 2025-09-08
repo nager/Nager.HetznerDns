@@ -1,10 +1,10 @@
-name: .NET Core
+name: Build & Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v5
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 9.0.x
     - name: Install dependencies
       run: |
         cd src
@@ -35,4 +35,4 @@ jobs:
         dotnet pack --configuration Release --output $GITHUB_WORKSPACE/out
 
     - name: Push generated package NuGet
-      run: dotnet nuget push $GITHUB_WORKSPACE/out/*.nupkg --source https://www.nuget.org/api/v2/package --api-key ${{secrets.NUGET_TOKEN}} --skip-duplicate --no-symbols true
+      run: dotnet nuget push $GITHUB_WORKSPACE/out/*.nupkg --source https://www.nuget.org/api/v2/package --api-key ${{secrets.NUGET_TOKEN}} --skip-duplicate --no-symbols
