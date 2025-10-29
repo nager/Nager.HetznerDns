@@ -1,3 +1,9 @@
+> [!CAUTION]
+**May 2026**<br>
+DNS Console: Shutdown of the DNS Console & DNS API.
+[FAQ](https://docs.hetzner.com/de/networking/dns/faq/beta)
+
+
 # Nager.HetznerDns  
 
 **Nager.HetznerDns** is a lightweight .NET client library for the [Hetzner DNS API](https://dns.hetzner.com/api-docs).  
